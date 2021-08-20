@@ -1,14 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
-import Todo from './todo';
+import App from './App';   //最初からあるやつ
+import Todo from './todo'; //todoアプリ
+import MemoApp from "./memoApp";
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Todo />
-  </React.StrictMode>,
+  <MemoApp />,
   document.getElementById('root')
 );
 
