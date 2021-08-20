@@ -15,3 +15,13 @@
 2. git diff 変更内容を把握できる
 3. git log コミット履歴を表示する
 4. git log -p 変更内容の履歴
+5. git add --all 変更が加えられたファイルだけadd
+
+
+
+# reactの開発
+1. cd ~/react-sample
+2. npm start
+3. 使用するのは開発用のファイルを配置するsrcと表示用のファイルを配置するpublic
+
+
