@@ -1,7 +1,7 @@
 # Gitのつかいかた
 ## 初回設定
 1. GitHubでNew repositoryを作成
-2. 管理するディレクトリで　git init
+2. 管理するディレクトリで git init
 3. git remote add origin <repository URL>
 
 ## プッシュ・プルする
