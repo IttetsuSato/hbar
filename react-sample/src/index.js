@@ -3,11 +3,12 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';   //最初からあるやつ
 import Todo from './todo'; //todoアプリ
-import MemoApp from "./memoApp";
+import Hbar from './hbar'; //hbar
+import MemoApp from "./memoApp"; //memoアプリ
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
-  <MemoApp />,
+  <Hbar />,
   document.getElementById('root')
 );
 
