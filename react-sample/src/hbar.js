@@ -1,5 +1,6 @@
 import React from "react";
 
+import { randomIdGenerator } from "./functions";
 import Header from "./components/Header";
 import EditArea from "./components/EditArea";
 
@@ -9,8 +10,8 @@ class Hbar extends React.Component{
 
     this.state = {
       title: "無題のドキュメント",
-      contents: [],
-      nextId: 0
+      nextId: randomIdGenerator(12),
+      contents: [{id: 333, content: randomIdGenerator(12)}]
     };
   }
 
@@ -20,6 +21,30 @@ class Hbar extends React.Component{
     }
     this.setState({
       title: titleText
+    });
+  };
+  
+  //textareaの生成（新しいtextareaのidを返す）
+  createContent = () => {
+    const {nextId, contents} = this.state;
+    this.setState({
+      nextId: randomIdGenerator(12),
+      contents: [...contents, {id: nextId, content: ''}]
+    });
+    return nextId
+  };
+
+  //contentsのupdate
+  updateContent = (id,newContent) => {
+    const {contents} = this.state;
+    const updatedContents = contents.map(contentData => {
+      if(contentData.id === id){
+        contentData.content = newContent;
+      }
+      return contentData
+    });
+    this.setState({
+      contents: updatedContents
     });
   };
   // deleteMemo = (id) => {
@@ -35,7 +60,12 @@ class Hbar extends React.Component{
     return(
       <div>
         <Header addTitle={this.addTitle}/>
-        <EditArea title={title} contents={contents} />
+        <EditArea 
+          title={title} 
+          contents={contents} 
+          createContent={this.createContent}
+          updateContent={this.updateContent}
+          />
       </div>
     );
   }
