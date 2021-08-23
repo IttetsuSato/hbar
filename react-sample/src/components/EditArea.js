@@ -31,12 +31,19 @@ class EditArea extends React.Component{
         this.props.deleteContent(focusId);
       }
   }
+  //上下移動
+  pressArrowUp = () => {
+    this.props.focusLine(this.state.focusId, -1);
+  }
+  pressArrowDown = () => {this.props.focusLine(this.state.focusId, 1);}
 
   //textareaでボタンを押したときの処理
   lineOnKeyDown = (event) => {
     const keyCode = event.keyCode;
     if(keyCode === 13) {this.pressEnter(event);}
     if(keyCode === 8 ) {this.pressDelete(event);}
+    if(keyCode === 38) {this.pressArrowUp();}
+    if(keyCode === 40) {this.pressArrowDown();}
   }
   
   //textareaへのフォーカスがはずれたら保存
