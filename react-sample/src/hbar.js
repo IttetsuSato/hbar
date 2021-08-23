@@ -11,7 +11,7 @@ class Hbar extends React.Component{
     this.state = {
       title: "無題のドキュメント",
       nextId: randomIdGenerator(12),
-      contents: [{id: 333, content: randomIdGenerator(12)}]
+      contents: [{id: randomIdGenerator(12), content: randomIdGenerator(12)}]
     };
   }
 
@@ -25,11 +25,15 @@ class Hbar extends React.Component{
   };
   
   //textareaの生成（新しいtextareaのidを返す）
-  createContent = () => {
+  createContent = (id) => {
     const {nextId, contents} = this.state;
+    //現在入力していたtextareaのindexを取得
+    const idMatching = (con) => con.id === id
+    const contentIndex = contents.findIndex(idMatching);
+
     this.setState({
       nextId: randomIdGenerator(12),
-      contents: [...contents, {id: nextId, content: ''}]
+      contents: [...contents.slice(0,contentIndex+1), {id: nextId, content: nextId}, ...contents.slice(contentIndex+1)]
     });
     return nextId
   };
