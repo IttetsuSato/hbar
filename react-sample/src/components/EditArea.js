@@ -19,37 +19,34 @@ class EditArea extends React.Component{
   
   //enterキーで保存して次のtextareaをcreate
   pressEnter = (event) => {
-    if(event.keyCode === 13){
-      const {focusId, content} = this.state;
       event.preventDefault();
+      const {focusId, content} = this.state;
       this.props.updateContent(focusId, content);
       const nextId = this.props.createContent(focusId);
       this.setState({focusId: nextId, content: '' });
       const newTextarea = this.focusArea.current;
       const c = newTextarea.querySelector('#'+focusId); 
       c.focus();
-    }
   }
   //deleteキーでline削除？
   pressDelete = (event) => {
-    if(event.keyCode === 8){
       const {focusId, content} = this.state;
       if(content === ''){
-        console.log("delete");
+        this.props.deleteContent(focusId);
       }
-    }
   }
 
   //textareaでボタンを押したときの処理
   lineOnKeyDown = (event) => {
-    this.pressEnter(event);
-    this.pressDelete(event);
+    const keyCode = event.keyCode;
+    if(keyCode === 13) {this.pressEnter(event);}
+    if(keyCode === 8 ) {this.pressDelete(event);}
   }
   
   //textareaへのフォーカスがはずれたら保存
   lineBlur = (event) => {
-    const {focusId, content} = this.state;
     event.preventDefault();
+    const {focusId, content} = this.state;
     this.props.updateContent(focusId, content);
     this.setState({content: ''});
   }
@@ -68,12 +65,12 @@ class EditArea extends React.Component{
         <li key={contentData.id}>
           <textarea
           id={contentData.id}
-          rows="1" 
-          onChange={this.handleChange}
-          onKeyDown={this.lineOnKeyDown}
-          onBlur={this.lineBlur}
-          onFocus={this.lineFocus}
           defaultValue={contentData.content}
+          rows="1" 
+          onChange  ={this.handleChange}
+          onKeyDown ={this.lineOnKeyDown}
+          onBlur    ={this.lineBlur}
+          onFocus   ={this.lineFocus}
           ></textarea>
         </li>
       );

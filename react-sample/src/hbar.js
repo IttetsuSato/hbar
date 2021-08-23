@@ -4,6 +4,8 @@ import { randomIdGenerator } from "./functions";
 import Header from "./components/Header";
 import EditArea from "./components/EditArea";
 
+
+
 class Hbar extends React.Component{
   constructor(props){
     super(props);
@@ -51,24 +53,29 @@ class Hbar extends React.Component{
       contents: updatedContents
     });
   };
-  // deleteMemo = (id) => {
-  //   const {memos} = this.state;
-  //   const filteredArray = memos.filter(memo => {
-  //     return memo.id !== id;
-  //   });
-  //   this.setState({memos: filteredArray});
-  // };
+
+  //contentsのdelete
+  deleteContent = (id) => {
+    const {contents} = this.state;
+    if(contents.length > 1){
+      const deletedContents = contents.filter(contentData => {
+        return contentData.id !== id;
+      });
+      this.setState({contents: deletedContents});
+    }
+  };
 
   render(){
     const {title,contents} = this.state;
     return(
-      <div>
+      <div className="container">
         <Header addTitle={this.addTitle}/>
         <EditArea 
           title={title} 
           contents={contents} 
           createContent={this.createContent}
           updateContent={this.updateContent}
+          deleteContent={this.deleteContent}
           />
       </div>
     );
