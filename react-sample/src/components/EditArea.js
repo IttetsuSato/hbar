@@ -7,7 +7,6 @@ class EditArea extends React.Component{
       focusId: '',
       content: ''
     };
-    this.focusArea = React.createRef();
   }
   
   //textareaへの書き込みをcontentに保存
@@ -22,16 +21,13 @@ class EditArea extends React.Component{
       event.preventDefault();
       const {focusId, content} = this.state;
       this.props.updateContent(focusId, content);
-      const nextId = this.props.createContent(focusId);
-      this.setState({focusId: nextId, content: '' });
-      const newTextarea = this.focusArea.current;
-      const c = newTextarea.querySelector('#'+focusId); 
-      c.focus();
+      this.props.createContent(focusId);
   }
-  //deleteキーでline削除？
+  //deleteキーでline削除
   pressDelete = (event) => {
       const {focusId, content} = this.state;
       if(content === ''){
+        this.props.focusLine(focusId, -1);
         this.props.deleteContent(focusId);
       }
   }
@@ -78,7 +74,7 @@ class EditArea extends React.Component{
     return (
       <div>
         <h2>{title}</h2>
-        <ul ref={this.focusArea}>
+        <ul>
           {list}
         </ul>
       </div>

@@ -1,6 +1,6 @@
 import React from "react";
 
-import { randomIdGenerator } from "./functions";
+import { randomIdGenerator, searchIndex } from "./functions";
 import Header from "./components/Header";
 import EditArea from "./components/EditArea";
 
@@ -25,20 +25,30 @@ class Hbar extends React.Component{
       title: titleText
     });
   };
+
+  // 任意の行をfocus
+  focusLine = (id, command) => {
+    const {contents} = this.state;
+    const contentIndex = searchIndex(id, contents);
+    const focusContent = contents[contentIndex + command];
+    if(focusContent){
+      const focusTextArea = document.getElementById(focusContent.id);
+      focusTextArea.focus();
+    }
+  }
   
   //textareaの生成（新しいtextareaのidを返す）
   createContent = (id) => {
     const {nextId, contents} = this.state;
     //現在入力していたtextareaのindexを取得
-    const idMatching = (con) => con.id === id
-    const contentIndex = contents.findIndex(idMatching);
-
+    const contentIndex = searchIndex(id, contents);
+    console.log(...contents.slice(contentIndex+1));
     this.setState({
       nextId: randomIdGenerator(12),
       contents: [...contents.slice(0,contentIndex+1), {id: nextId, content: nextId}, ...contents.slice(contentIndex+1)]
     });
-    return nextId
   };
+
 
   //contentsのupdate
   updateContent = (id,newContent) => {
@@ -68,11 +78,12 @@ class Hbar extends React.Component{
   render(){
     const {title,contents} = this.state;
     return(
-      <div className="container">
+      <div>
         <Header addTitle={this.addTitle}/>
         <EditArea 
           title={title} 
-          contents={contents} 
+          contents={contents}
+          focusLine={this.focusLine}
           createContent={this.createContent}
           updateContent={this.updateContent}
           deleteContent={this.deleteContent}

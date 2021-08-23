@@ -8,3 +8,9 @@ export function randomIdGenerator(len) {
   }  
   return name.join('')  
 }  
+
+// contents配列から任意のidを持つデータのindexを返す
+export function searchIndex(id, contents) {
+  const idMatching = (con) => con.id === id
+  return contents.findIndex(idMatching);
+}
