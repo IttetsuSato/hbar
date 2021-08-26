@@ -1,4 +1,5 @@
-import React from "react";
+import React from 'react';
+import { Button } from '@material-ui/core';
 
 import { randomIdGenerator, searchIndex } from "./functions";
 import Header from "./components/Header";
@@ -42,7 +43,6 @@ class Hbar extends React.Component{
     const {nextId, contents} = this.state;
     //現在入力していたtextareaのindexを取得
     const contentIndex = searchIndex(id, contents);
-    console.log(...contents.slice(contentIndex+1));
     this.setState({
       nextId: randomIdGenerator(12),
       contents: [...contents.slice(0,contentIndex+1), {id: nextId, content: nextId}, ...contents.slice(contentIndex+1)]
@@ -79,10 +79,10 @@ class Hbar extends React.Component{
     const {title,contents} = this.state;
     return(
       <div>
-        <Header addTitle={this.addTitle}/>
+        <Header title={title} />
         <EditArea 
-          title={title} 
           contents={contents}
+          addTitle={this.addTitle}
           focusLine={this.focusLine}
           createContent={this.createContent}
           updateContent={this.updateContent}

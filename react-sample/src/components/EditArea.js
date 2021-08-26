@@ -1,4 +1,5 @@
 import React from "react";
+import { Container, Paper } from '@material-ui/core';
 
 class EditArea extends React.Component{
   constructor(props){
@@ -8,6 +9,11 @@ class EditArea extends React.Component{
       content: ''
     };
   }
+
+  titleChange = (event) => {
+    const titleText = event.target.value;
+    this.props.addTitle(titleText);
+  };
   
   //textareaへの書き込みをcontentに保存
   handleChange = (event) => {
@@ -80,10 +86,15 @@ class EditArea extends React.Component{
     })
     return (
       <div>
-        <h2>{title}</h2>
-        <ul>
-          {list}
-        </ul>
+        <Container maxWidth="sm">
+          <Paper elevation={1}>
+            <input placeholder="無題のドキュメント" value={this.props.title} onChange={this.titleChange} />
+            <ul>
+              {list}
+            </ul>
+          </Paper>
+        </Container>
+
       </div>
     );
   }

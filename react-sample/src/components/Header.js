@@ -1,4 +1,6 @@
 import React from "react";
+import { AppBar, Toolbar, IconButton, Typography, Button } from '@material-ui/core';
+import { Menu } from '@material-ui/icons';
 
 class Header extends React.Component{
   constructor(props){
@@ -12,9 +14,16 @@ class Header extends React.Component{
 
   render(){
     return (
-      <div>
-        <input placeholder="無題のドキュメント" value={this.props.title} onChange={this.handleChange} />
-      </div>
+      <AppBar position="static">
+        <Toolbar>
+          <IconButton edge="start" color="inherit" aria-label="menu">
+            <Menu/>
+          </IconButton>
+          <Typography variant="h6">
+            {this.props.title}
+          </Typography>
+        </Toolbar>
+      </AppBar>
     );
   }
 }
