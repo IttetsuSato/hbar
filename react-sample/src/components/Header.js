@@ -1,6 +1,6 @@
 import React from "react";
 import SimpleMenu from "./Menu";
-import { AppBar, Toolbar, IconButton, Typography } from '@material-ui/core';
+import { AppBar, Toolbar, Typography } from '@material-ui/core';
 
 class Header extends React.Component{
   constructor(props){
@@ -16,7 +16,7 @@ class Header extends React.Component{
     return (
       <AppBar position="static">
         <Toolbar>
-          <SimpleMenu/>
+          <SimpleMenu readContent={this.props.readContent} />
 
           <Typography variant="h6">
             {this.props.title}

@@ -1,8 +1,9 @@
 import React from 'react';
-import { Button, Menu, MenuItem } from '@material-ui/core';
+import { IconButton, Button, Menu, MenuItem } from '@material-ui/core';
 import ListIcon from '@material-ui/icons/List';
+import FolderOpenTwoToneIcon from '@material-ui/icons/FolderOpenTwoTone';
 
-export default function SimpleMenu() {
+export default function SimpleMenu(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = (event) => {
@@ -13,23 +14,29 @@ export default function SimpleMenu() {
     setAnchorEl(null);
   };
 
+  // ファイル読み込み、stateの変更も行う
   const readFile = (e) => {
-    let fileReader = new FileReader();
+    let reader = new FileReader();
     for(const file of e.target.files) {
       //Fileオブジェクト(テキストファイル)のファイル内容を読み込む
-      fileReader.readAsText(file, 'UTF-8');
-      //ファイルの読み込み完了後に内容をコンソールに出力する
-      fileReader.onload = ()=> {
-        console.log(fileReader.result);
+      reader.readAsText(file, 'UTF-8');
+      //ファイルの読み込み完了後にreadContent実行
+      reader.onload = () => {
+        const standardizedTexts = reader.result.replace(/\r\n|\r/g, "\n");
+        const textArray = standardizedTexts.split('\n');
+        props.readContent(textArray);
       };
     }
   }
 
   return (
     <div>
-      <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
+      <IconButton
+        aria-controls="simple-menu" aria-haspopup="true" 
+        color="inherit"
+        onClick={handleClick}>
         <ListIcon />
-      </Button>
+      </IconButton>
       <Menu
         id="simple-menu"
         anchorEl={anchorEl}
@@ -38,9 +45,15 @@ export default function SimpleMenu() {
         onClose={handleClose}
       >
         <MenuItem onClick={handleClose}>
-          <form>
-              <input id="file" type="file" name="file" multiple onChange={(e) => readFile(e)}/>
-          </form>
+          <Button
+            variant="contained"
+            color="default"
+            startIcon={<FolderOpenTwoToneIcon />}
+          >
+            <form>
+                <input id="file" type="file" name="file" display="none" multiple onChange={(e) => readFile(e)}/>
+            </form>
+          </Button>
         </MenuItem>
         <MenuItem onClick={handleClose}>Profile</MenuItem>
         <MenuItem onClick={handleClose}>Profile</MenuItem>

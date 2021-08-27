@@ -14,7 +14,7 @@ class Hbar extends React.Component{
     this.state = {
       title: "無題のドキュメント",
       nextId: randomIdGenerator(12),
-      contents: [{id: randomIdGenerator(12), content: randomIdGenerator(12)}]
+      contents: [{id: randomIdGenerator(12), content: 'please read or create file'}]
     };
   }
 
@@ -45,9 +45,23 @@ class Hbar extends React.Component{
     const contentIndex = searchIndex(id, contents);
     this.setState({
       nextId: randomIdGenerator(12),
-      contents: [...contents.slice(0,contentIndex+1), {id: nextId, content: nextId}, ...contents.slice(contentIndex+1)]
+      contents: [...contents.slice(0,contentIndex+1), {id: nextId, content: ''}, ...contents.slice(contentIndex+1)]
     });
   };
+
+  //contentsの読み込み
+  readContent = (textArray) => {
+    this.setState({
+      contents: []
+    });
+    for(const text of textArray){
+      const {nextId, contents} = this.state;
+      this.setState({
+        nextId: randomIdGenerator(12),
+        contents: [...contents, {id: nextId, content: text}]
+      });
+    }
+  }
 
 
   //contentsのupdate
@@ -79,9 +93,12 @@ class Hbar extends React.Component{
     const {title,contents} = this.state;
     return(
       <div>
-        <Header title={title} />
+        <Header
+          title={title} 
+          readContent={this.readContent}
+          />
         <EditArea 
-          contents={contents}
+          contents={title, contents}
           addTitle={this.addTitle}
           focusLine={this.focusLine}
           createContent={this.createContent}
