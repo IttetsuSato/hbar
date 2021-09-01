@@ -95,10 +95,11 @@ class Hbar extends React.Component{
       <div>
         <Header
           title={title} 
+          contents={contents}
           readContent={this.readContent}
           />
         <EditArea 
-          contents={title, contents}
+          contents={contents}
           addTitle={this.addTitle}
           focusLine={this.focusLine}
           createContent={this.createContent}

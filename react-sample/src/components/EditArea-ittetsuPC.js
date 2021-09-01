@@ -28,6 +28,7 @@ class EditArea extends React.Component{
       const {focusId, content} = this.state;
       this.props.updateContent(focusId, content);
       this.props.createContent(focusId);
+      
   }
   //deleteキーでline削除
   pressDelete = (event) => {

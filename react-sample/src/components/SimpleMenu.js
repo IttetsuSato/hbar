@@ -2,6 +2,7 @@ import React from 'react';
 import { IconButton, Button, Menu, MenuItem } from '@material-ui/core';
 import ListIcon from '@material-ui/icons/List';
 import FolderOpenTwoToneIcon from '@material-ui/icons/FolderOpenTwoTone';
+import SaveAltIcon from '@material-ui/icons/SaveAlt';
 
 export default function SimpleMenu(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -29,6 +30,13 @@ export default function SimpleMenu(props) {
     }
   }
 
+  // ファイル書き込み
+  const writeFile = () => {
+    const contents = props.contents;
+    console.log(contents);
+    
+  }
+
   return (
     <div>
       <IconButton
@@ -47,15 +55,22 @@ export default function SimpleMenu(props) {
         <MenuItem onClick={handleClose}>
           <Button
             variant="contained"
-            color="default"
+            color="inherit"
             startIcon={<FolderOpenTwoToneIcon />}
           >
-            <form>
-                <input id="file" type="file" name="file" display="none" multiple onChange={(e) => readFile(e)}/>
-            </form>
+            <input id="file" type="file" name="file" display="none" multiple onChange={(e) => readFile(e)}/>
           </Button>
         </MenuItem>
-        <MenuItem onClick={handleClose}>Profile</MenuItem>
+        <MenuItem onClick={handleClose}>
+          <Button
+            variant="contained"
+            color="inherit"
+            startIcon={<SaveAltIcon />}
+            onClick={writeFile}
+          >
+            Save
+          </Button>
+        </MenuItem>
         <MenuItem onClick={handleClose}>Profile</MenuItem>
       </Menu>
     </div>
